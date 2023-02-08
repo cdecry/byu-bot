@@ -1,4 +1,5 @@
 module.exports = Object.freeze({
+    PREFIX: "~",
     ABOUT_TITLE: "hi, i'm byu~",
     ABOUT_DESCRIPTION: "**byu-bot** is a miscellaneous discord bot originally created for the purpose of custom embedded auto responses!",
     ABOUT_COLOR: 0xcae7f9,
