@@ -9,8 +9,12 @@ dotenv.config();
 const client = new Eris(process.env.TOKEN);
 var prefix = c.PREFIX;
 
-client.on("ready", () => {
-    console.log("byu is ready!"); client.editStatus("idle", { name: 'your mom', type: 3, url: 'http://google.com' });
+client.on("ready").catch(err => console.log(err));
+
+client.on("ready", async () => {
+    console.log("byu is ready!");
+    client.editStatus("idle", { name: 'your mom', type: 3, url: 'http://google.com' });
+    await mongoose.connect(process.env.DB_URI);
 });
 
 client.on("error", (err) => console.error(err));
