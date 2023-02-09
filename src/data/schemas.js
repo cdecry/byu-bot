@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
+mongoose.set('strictQuery', true);
 
 // users collection
 const userSchema = new mongoose.Schema({
-    userID: { type: Number, required: true },
+    discordID: { type: Number, required: true },
     globalBalance: { type: Number, required: true },
     servers: [{
         serverID: { type: Number, required: true },

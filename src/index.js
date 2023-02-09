@@ -1,4 +1,5 @@
 const Eris = require("eris");
+const mongoose = require('mongoose');
 const c = require('./constants');
 const commands = require('./commands');
 const utils = require('./utils');
@@ -9,7 +10,7 @@ dotenv.config();
 const client = new Eris(process.env.TOKEN);
 var prefix = c.PREFIX;
 
-client.on("ready").catch(err => console.log(err));
+// client.on("ready").catch(err => console.log(err));
 
 client.on("ready", async () => {
     console.log("byu is ready!");
@@ -32,6 +33,9 @@ client.on("messageCreate", async (msg) => {
                 break;
             case `${prefix}help`:
                 commands.cmdHelp(client, msg);
+                break;
+            case `${prefix}test`:
+                commands.cmdTestAddUser(client, msg);
                 break;
             default:
                 console.log('Command does not exist');

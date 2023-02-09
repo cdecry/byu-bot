@@ -29,6 +29,43 @@ exports.addUser =  async function (discordID, serverID) {
     console.log('someone new is using byu-bot!');
 }
 
+// checks if a) user has used byu-bot before b) user has used byu-bot in THIS server
+exports.checkUserServer = async function (discordID, serverID) {
+    return new Promise((resolve, reject) => {
+        User.findOne({ 'discordID': discordID }, 'servers', function (err, user) {
+            if (err) {
+                reject(err);
+            }
+            if (!user) {
+                resolve({ userExists: false, usedInServer: false });
+            } else {
+                let server = user.servers.find(s => s.serverID === serverID);
+                if (!server) {
+                    resolve({ userExists: true, usedInServer: true });
+                } else {
+                    resolve({ userExists: true, usedInServer: false });
+                }
+            }
+        });
+    });
+}
+
+// check if this is the users firs ttime using byu-bot
+// exports.checkUserExists = async function (discordID) {
+//     return new Promise((resolve, reject) => {
+//         User.findOne({ 'discordID': discordID }, function (err, user) {
+//             if (err) {
+//                 reject(err);
+//             } else if (user) {
+//                 resolve(true);
+//             } else {
+//                 resolve(false);
+//             }
+//         });
+//     });
+// }
+
+
 // exports.loginRequest = async function (username, password) {
 //     return new Promise((resolve, reject) => {
 //         User.findOne({ 'username': username }, 'id username password', function (err, user) {
@@ -51,7 +88,7 @@ exports.addUser =  async function (discordID, serverID) {
 exports.getUserGlobalBalance = async function (discordID) {
     return new Promise((resolve, reject) => {
         User.findOne({ 'discordID': discordID }, 'globalBalance', function (err, user) {
-            resolve(globalBalance);
+            resolve(user.globalBalance);
         });
     });
 }
