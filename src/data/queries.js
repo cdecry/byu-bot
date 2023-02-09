@@ -17,7 +17,7 @@ exports.addUser =  async function (discordID, serverID) {
 
     await newUser.save();
     console.log('someone new is using byu-bot!');
-    return { user: newUser, server: newUser.servers[0] };
+    return { user: newUser, server: newUser.servers[serverID] };
 }
 
 // checks if a) user has used byu-bot before b) user has used byu-bot in THIS server
@@ -30,12 +30,13 @@ exports.checkUserServer = async function (discordID, serverID) {
             let res;
             if (!user) {
                 res = await queries.addUser(discordID, serverID);
+                console.log(`checkUserServer new user server: ${String(res.server)}`);
                 resolve({ user: res.user, server: res.server, userExists: false, usedInServer: false });
             } else {
 
                 //let server = user.servers.find(s => s.serverID === serverID);
                 let server = user.servers[serverID];
-                console.log(`checkUserServer server: ${String(user.servers[serverID])}`);
+                console.log(`checkUserServer user but no server   server: ${String(user.servers[serverID])}`);
 
                 if (!server) {
                     // res = await.addUserServer(discordID, serverID)
@@ -50,10 +51,13 @@ exports.checkUserServer = async function (discordID, serverID) {
 }
 
 // add/sub to/from current server balance (general use)
-exports.addToUserServerBalance = async function (user, server, amount) {
+exports.addToUserServerBalance = async function (user, serverID, amount) {
     return new Promise(async (resolve, reject) => {
-        user.servers[server["serverID"]].balance = server.balance + amount;
-        console.log(JSON.stringify(user));
+
+        let temp = JSON.parse(JSON.stringify(user.servers));
+        temp[serverID].balance = temp[serverID].balance + amount;
+        user.servers = temp;
+
         await user.save().then(function (updatedUser) {
             resolve(updatedUser);
         }).catch(function (err) {
