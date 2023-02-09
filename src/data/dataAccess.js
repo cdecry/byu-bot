@@ -6,7 +6,6 @@ const { addUser, getUserGlobalBalance, checkUserServer, updateUserServerBalance,
 
 exports.handleFish = async function (discordID, serverID, amount) {
     let userCheck = await checkUserServer(discordID, serverID);
-    console.log(`handleFish: ${JSON.stringify(userCheck.server)}, ${amount}`);
     let resUser = await addToUserServerBalance(userCheck.user, serverID, amount);
-    console.log(`new: ${JSON.stringify(resUser.servers)}`);
+    return resUser;
 }

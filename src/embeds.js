@@ -1,4 +1,5 @@
 const { defaultColor, blueDotURL, byuColored, byuPfp, emptyField, empty, emoteBlueHeart, emoteSparkles, timestamp, noTimestamp } = require("./constants");
+const { getRandomInt } = require("./utils");
 
 const aboutTitle = "hi, i'm byu~";
 const aboutDescription = "**byu-bot** is a miscellaneous discord bot originally created for the purpose of custom embedded auto responses!";
@@ -26,19 +27,13 @@ const helpFields = [
     { name: `${emoteBlueHeart} fun commands`, value: '`idk`', inline: false }
 ];
 
-// const fishTitle = function () {
-//     getRandomInt
-// }
-
-const fishTitle = `${emoteSparkles} ${emoteBlueHeart} you caught a fishy! $`;
 const fishDescription = empty;
 const fishColor = defaultColor;
 const fishAuthor = empty;
 const fishAuthorIcon = blueDotURL;
 const fishImage = empty;
 const fishThumbnail = empty;
-const fishFooter = empty;
-const fishFooterIcon = blueDotURL;
+const fishFooterIcon = "https://static.wikia.nocookie.net/animalcrossing/images/2/2c/NH-Icon-palechub.png/revision/latest?cb=20200401003129";
 const fishFields = emptyField;
 
 exports.embedAbout = {
@@ -81,22 +76,26 @@ exports.embedHelp = {
     fields: helpFields
 };
 
-exports.embedFish = {
-    title: fishTitle,
-    description: fishDescription,
-    timestamp: noTimestamp,
-    color: fishColor,
-    author: {
-        name: fishAuthor, icon_url: fishAuthorIcon
-    },
-    image: {
-        url: fishImage
-    },
-    thumbnail: {
-        url: fishThumbnail
-    },
-    footer: {
-        text: fishFooter, icon_url: fishFooterIcon
-    },
-    fields: fishFields
-};
+exports.embedFish = function(username, amount, balance) {
+    const fishTitle = `${emoteSparkles} ${emoteBlueHeart} ${username} caught a fishy! (  + ${amount}  )`;
+    const fishFooter = `your new balance: ${balance} !`;
+    return {
+      title: fishTitle,
+      description: fishDescription,
+      timestamp: noTimestamp,
+      color: fishColor,
+      author: {
+          name: fishAuthor, icon_url: fishAuthorIcon
+      },
+      image: {
+          url: fishImage
+      },
+      thumbnail: {
+          url: fishThumbnail
+      },
+      footer: {
+          text: fishFooter, icon_url: fishFooterIcon
+      },
+      fields: fishFields
+    };
+  };
