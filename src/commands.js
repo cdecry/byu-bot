@@ -5,6 +5,7 @@ const utils = require('./utils');
 module.exports = {
     cmdPing,
     cmdAbout,
+    cmdHelp,
 };
 
 function cmdPing(client, msg) {
@@ -14,7 +15,11 @@ function cmdPing(client, msg) {
 }
 
 function cmdAbout(client, msg) {
+    let embed = utils.createEmbed(c.ABOUT_TITLE, c.ABOUT_DESCRIPTION, c.ABOUT_COLOR, c.ABOUT_AUTHOR, c.ABOUT_AUTHOR_ICON, c.ABOUT_IMAGE, c.ABOUT_THUMBNAIL, c.ABOUT_FOOTER, c.ABOUT_FOOTER_ICON, []);
+    client.createMessage(msg.channel.id, { embed: embed });
+}
 
-    let embed = utils.createEmbed(c.ABOUT_TITLE, c.ABOUT_DESCRIPTION, c.ABOUT_COLOR, c.ABOUT_AUTHOR, c.ABOUT_AUTHOR_ICON, c.ABOUT_IMAGE, c.ABOUT_THUMBNAIL, c.ABOUT_FOOTER, c.ABOUT_FOOTER_ICON);
+function cmdHelp(client, msg) {
+    let embed = utils.createEmbed("", c.HELP_DESCRIPTION, c.ABOUT_COLOR, c.ABOUT_AUTHOR, c.ABOUT_AUTHOR_ICON, "", "", "", "", c.HELP_FIELDS);
     client.createMessage(msg.channel.id, { embed: embed });
 }

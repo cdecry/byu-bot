@@ -11,7 +11,7 @@ function validCommand(msg) {
     return true;
 }
 
-function createEmbed(title, description, color, author, authorIconURL, imageURL, thumbnailURL, footer, footerIcon) {
+function createEmbed(title, description, color, author, authorIconURL, imageURL, thumbnailURL, footer, footerIcon, fields) {
     return {
         title: title,
         description: description,
@@ -28,7 +28,8 @@ function createEmbed(title, description, color, author, authorIconURL, imageURL,
         },
         footer: {
             text: footer, icon_url: footerIcon
-        }
+        },
+        fields: fields
         // fields: [
         //     { name: "audio commands", value: "n/a", inline: true },
         //     { name: "action commands", value: "n/a", inline: false}

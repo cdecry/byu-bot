@@ -26,6 +26,9 @@ client.on("messageCreate", async (msg) => {
             case `${prefix}about`:
                 commands.cmdAbout(client, msg);
                 break;
+            case `${prefix}help`:
+                commands.cmdHelp(client, msg);
+                break;
             default:
                 console.log('Command does not exist');
                 return;
