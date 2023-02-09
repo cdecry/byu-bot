@@ -1,17 +1,17 @@
 const Eris = require("eris");
 const c = require('./constants');
 
-module.exports = {
-    validCommand,
-    createEmbed,
-};
+// module.exports = {
+//     validCommand,
+//     createEmbed,
+// };
 
-function validCommand(msg) {
+exports.validCommand = function (msg) {
     if (msg.author.bot || !msg.channel.guild || !msg.content.startsWith(c.PREFIX)) return false;
     return true;
 }
 
-function createEmbed(title, description, color, author, authorIconURL, imageURL, thumbnailURL, footer, footerIcon, fields) {
+exports.createEmbed = function (title, description, color, author, authorIconURL, imageURL, thumbnailURL, footer, footerIcon, fields) {
     return {
         title: title,
         description: description,
@@ -35,4 +35,10 @@ function createEmbed(title, description, color, author, authorIconURL, imageURL,
         //     { name: "action commands", value: "n/a", inline: false}
         // ]
     };
+}
+
+exports.getRandomInt = function(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min);
 }

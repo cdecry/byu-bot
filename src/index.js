@@ -37,6 +37,9 @@ client.on("messageCreate", async (msg) => {
             case `${prefix}test`:
                 commands.cmdTestAddUser(client, msg);
                 break;
+            case `${prefix}fish`:
+                commands.cmdFish(client, msg);
+                break;
             default:
                 console.log('Command does not exist');
                 return;

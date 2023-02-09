@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 dotenv.config();
 
-const { addUser, getUserGlobalBalance, checkUserServer } = require("./queries");
+const { addUser, getUserGlobalBalance, checkUserServer, updateUserServerBalance, addToUserServerBalance } = require("./queries");
 
 exports.handleTestAddUser =  async function (discordID, serverID) {
     
@@ -17,8 +17,12 @@ exports.handleTestAddUser =  async function (discordID, serverID) {
         // resolver for adding server
         return 1;
     }
-
     return 2;
-    // console.log('added a user to byu-bot database!');
-    // console.log(`their current global bal is: ${await getUserGlobalBalance(discordID)}`);
+}
+
+exports.handleFish = async function (discordID, serverID, amount) {
+    let userCheck = await checkUserServer(discordID, serverID);
+    console.log(`handleFish: ${JSON.stringify(userCheck.server)}, ${amount}`);
+    let resUser = await addToUserServerBalance(userCheck.user, userCheck.server, amount);
+    console.log(`new: ${JSON.stringify(resUser.servers)}`);
 }
