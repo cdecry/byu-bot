@@ -20,32 +20,54 @@ exports.addUser =  async function (discordID, serverID) {
     return { user: newUser, server: newUser.servers[serverID] };
 }
 
+// add this server to the user's servers object
+exports.addToUserServers = async function (user, serverID) {
+    return new Promise(async (resolve, reject) => {
+        user.servers[serverID] = {
+            serverID: serverID,
+            balance: 0,
+            items: []
+        };
+
+        await user.save(function (err, updatedUser) {
+            if (err) {
+                reject(err);
+            }
+            resolve(updatedUser);
+        });
+    });
+}
+
 // checks if a) user has used byu-bot before b) user has used byu-bot in THIS server
 exports.checkUserServer = async function (discordID, serverID) {
     return new Promise((resolve, reject) => {
+        // find a document user  that matches this discordid
         User.findOne({ 'discordID': discordID }, 'servers', async function (err, user) {
             if (err) {
                 reject(err);
             }
+            
             let res;
+            let server;
+
+            // if document doesn't exist, add this user and return an obj {user: userobj server: current server obj: ...}
             if (!user) {
                 res = await queries.addUser(discordID, serverID);
-                console.log(`checkUserServer new user server: ${String(res.server)}`);
-                resolve({ user: res.user, server: res.server, userExists: false, usedInServer: false });
-            } else {
+                user = res.user;
+                server = res.server;
+            }
+            
+            else { // user exists!
+                server = user.servers[serverID];
+                console.log(`checkUserServer, user exists, server: ${JSON.stringify(server)}`);
 
-                //let server = user.servers.find(s => s.serverID === serverID);
-                let server = user.servers[serverID];
-                console.log(`checkUserServer user but no server   server: ${String(user.servers[serverID])}`);
-
-                if (!server) {
-                    // res = await.addUserServer(discordID, serverID)
-                    // resolve({ user: user, server: res.server, userExists: true, usedInServer: true });
-                    resolve({ user: user, server: server, userExists: true, usedInServer: true });
-                } else {
-                    resolve({ user: user, server: server, userExists: true, usedInServer: false });
+                if (!server) { // user exists but they haven't used byu in this server before
+                    res = await queries.addToUserServers(user, serverID); // add server to user server list
+                    server = res.servers[serverID];
                 }
             }
+
+            resolve({ user: user, server: server, userExists: true, usedInServer: false });
         });
     });
 }
