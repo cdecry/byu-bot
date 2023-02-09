@@ -1,21 +1,16 @@
 const Eris = require("eris");
-const c = require('./constants');
-
-// module.exports = {
-//     validCommand,
-//     createEmbed,
-// };
+const { prefix } = require("./constants");
 
 exports.validCommand = function (msg) {
-    if (msg.author.bot || !msg.channel.guild || !msg.content.startsWith(c.PREFIX)) return false;
+    if (msg.author.bot || !msg.channel.guild || !msg.content.startsWith(prefix)) return false;
     return true;
 }
 
-exports.createEmbed = function (title, description, color, author, authorIconURL, imageURL, thumbnailURL, footer, footerIcon, fields) {
+exports.createEmbed = function (title, description, color, author, authorIconURL, imageURL, thumbnailURL, footer, footerIcon, fields, timestamp) {
     return {
         title: title,
         description: description,
-        timestamp: new Date(),
+        timestamp: timestamp,
         color: color,
         author: {
             name: author, icon_url: authorIconURL

@@ -1,6 +1,6 @@
 const Eris = require("eris");
 const mongoose = require('mongoose');
-const c = require('./constants');
+const { prefix } = require('./constants');
 const commands = require('./commands');
 const utils = require('./utils');
 const dotenv = require('dotenv');
@@ -8,9 +8,6 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const client = new Eris(process.env.TOKEN);
-var prefix = c.PREFIX;
-
-// client.on("ready").catch(err => console.log(err));
 
 client.on("ready", async () => {
     console.log("byu is ready!");
@@ -21,9 +18,7 @@ client.on("ready", async () => {
 client.on("error", (err) => console.error(err));
 
 client.on("messageCreate", async (msg) => {
-
     if (utils.validCommand(msg)) {
-        
         switch(msg.content) {
             case `${prefix}ping`:
                 commands.cmdPing(client, msg);
@@ -33,9 +28,6 @@ client.on("messageCreate", async (msg) => {
                 break;
             case `${prefix}help`:
                 commands.cmdHelp(client, msg);
-                break;
-            case `${prefix}test`:
-                commands.cmdTestAddUser(client, msg);
                 break;
             case `${prefix}fish`:
                 commands.cmdFish(client, msg);

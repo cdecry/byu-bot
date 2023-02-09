@@ -46,7 +46,7 @@ exports.checkUserServer = async function (discordID, serverID) {
             if (err) {
                 reject(err);
             }
-            
+
             let res;
             let server;
 
@@ -59,8 +59,7 @@ exports.checkUserServer = async function (discordID, serverID) {
             
             else { // user exists!
                 server = user.servers[serverID];
-                console.log(`checkUserServer, user exists, server: ${JSON.stringify(server)}`);
-
+                
                 if (!server) { // user exists but they haven't used byu in this server before
                     res = await queries.addToUserServers(user, serverID); // add server to user server list
                     server = res.servers[serverID];
