@@ -39,6 +39,18 @@ const fishFooter = empty;
 const fishFooterIcon = "https://static.wikia.nocookie.net/animalcrossing/images/2/2c/NH-Icon-palechub.png/revision/latest?cb=20200401003129";
 const fishFields = emptyField;
 
+const balanceTitle = empty;
+const balanceDescription = empty;
+const balanceColor = defaultColor;
+// const balanceAuthor = "user's wallet";
+// const balanceAuthorIcon = blueDotURL;
+const balanceImage = empty;
+const balanceThumbnail = empty;
+const balanceFooter = empty;
+const balanceFooterIcon = blueDotURL;
+// const balanceFields = [];
+
+
 exports.embedAbout = {
     title: aboutTitle,
     description: aboutDescription,
@@ -103,12 +115,16 @@ exports.embedFish = function(username, fish, amount, balance) {
     };
   };
 
-  exports.embedBalance = function(username, balance) {
-    const fishTitle = `${emoteSparkles} ${emoteBlueHeart} ${username} caught a ${fish}! (  + ${amount} ${currency}  )`;
-    const fishDescription = `**${emoteSparkles} ${emoteBlueHeart} ${username} caught a ${fish}! (  + ${amount} ${currency}  )**\n\n${emoteBlueDot} you sell it at the fish market .\n${emoteBlueDot} your new balance is ${balance} ${currency} !`;
+  exports.embedBalance = function(username, userAvatar, balance) {
+    const balanceAuthor = `${username}'s wallet !`;
+    const balanceAuthorIcon = userAvatar;
+    const balanceFields = [
+        { name: `${emoteBlueDot} pet:`, value: '‎ ‎ ╰▸ ‎ no pet :c ', inline: true},
+        { name: `${emoteBlueDot} balance:`, value: `‎ ‎ ╰▸ ‎ ${currency} ${balance}`, inline: true},
+    ]
     return {
       title: balanceTitle,
-      description: balanceDesc,
+      description: balanceDescription,
       timestamp: noTimestamp,
       color: balanceColor,
       author: {

@@ -32,6 +32,9 @@ client.on("messageCreate", async (msg) => {
             case `${prefix}fish`:
                 commands.cmdFish(client, msg);
                 break;
+            case `${prefix}balance`:
+                commands.cmdBalance(client, msg);
+                break;
             default:
                 console.log('Command does not exist');
                 return;

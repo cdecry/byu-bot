@@ -13,5 +13,5 @@ exports.handleFish = async function (discordID, serverID, amount) {
 exports.handleBalance = async function (discordID, serverID) {
     let userCheck = await checkUserServer(discordID, serverID);
     // les resUser = await getUserServerBalance(discordID,)
-    return userCheck.user.servers[serverID][balance];
+    return userCheck.user.servers[serverID].balance;
 }

@@ -2,7 +2,7 @@ const Eris = require("eris");
 const c = require('./constants');
 const utils = require('./utils');
 const dao = require('./data/dataAccess');
-const { embedAbout, embedHelp, embedFish } = require("./embeds");
+const { embedAbout, embedHelp, embedFish, embedBalance } = require("./embeds");
 
 exports.cmdPing = async function (client, msg) {
     // this is slower bc caches, dont use unless necessary
@@ -27,5 +27,5 @@ exports.cmdFish = async function (client, msg) {
 
 exports.cmdBalance = async function (client, msg) {
     let balance = await dao.handleBalance(msg.author.id, msg.channel.guild.id);
-    client.createMessage(msg.channel.id, { embed: embedBalance(msg.author.username, balance) });
+    client.createMessage(msg.channel.id, { embed: embedBalance(msg.author.username, msg.member.avatarURL, balance) });
 }
