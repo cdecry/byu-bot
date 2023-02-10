@@ -12,3 +12,4 @@ exports.currency = ":cherry_blossom:";
 exports.emoteBlueHeart = "<:blueheart:1072991772067774565>";
 exports.emoteSparkles = "<a:sparklies:1073332818463182858>";
 exports.emoteBlueDot = "<:bluedot:1073361563957874789>";
+exports.emoteBlueHeartPulse = "<a:blueheartpulse:1073394318389297252>";

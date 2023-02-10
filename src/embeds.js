@@ -1,16 +1,19 @@
-const { defaultColor, blueDotURL, byuColored, byuPfp, emptyField, empty, emoteBlueHeart, emoteSparkles, timestamp, noTimestamp, emoteBlueDot, currency } = require("./constants");
+const { defaultColor, blueDotURL, byuColored, byuPfp, emptyField, empty, emoteBlueHeart, emoteSparkles, timestamp, noTimestamp, emoteBlueDot, currency, emoteBlueHeartPulse } = require("./constants");
 const { getRandomInt } = require("./utils");
 
-const aboutTitle = "hi, i'm byu~";
-const aboutDescription = "**byu-bot** is a miscellaneous discord bot originally created for the purpose of custom embedded auto responses!";
+const aboutTitle = `hi, i'm byu~`;
+const aboutDescription = `${emoteSparkles} **byu-bot** ${emoteBlueHeartPulse} is a miscellaneous discord bot originally created for the purpose of custom embedded auto responses!\n‎`;
 const aboutColor = defaultColor;
 const aboutAuthor = "byu";
-const aboutAuthorIcon = blueDotURL;
+const aboutAuthorIcon = "https://media.discordapp.net/attachments/995187851937447936/1073395721765650502/blueheart.png";
 const aboutImage = byuColored;
 const aboutThumbnail = byuPfp;
 const aboutFooter = "use  ~help  to see some of byu's commands!";
 const aboutFooterIcon = blueDotURL;
-const aboutFields = emptyField;
+const aboutFields = [
+    { name: `${emoteBlueDot} tech stack:`, value: '‎ ‎ ╰▸ ‎ Eris, JS, MongoDB', inline: true},
+    { name: `${emoteBlueDot} created by:`, value: '‎ ‎ ╰▸ ‎ ue / crystal', inline: true},
+];
 
 const helpTitle = empty;
 const helpDescription = "**full commands list:**\nuse `/help <command name>` to get more info about a command.";
@@ -20,7 +23,7 @@ const helpAuthorIcon = blueDotURL;
 const helpImage = empty;
 const helpThumbnail = byuPfp;
 const helpFooter = empty;
-const helpFooterIcon = blueDotURL;
+const helpFooterIcon = "blueDotURL";
 const helpFields = [
     { name: `${emoteBlueHeart} currency commands`, value: '`fish`', inline: false },
     { name: `${emoteBlueHeart} info commands`, value: "`about` `help` `ping`", inline: false },
