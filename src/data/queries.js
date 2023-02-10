@@ -59,7 +59,7 @@ exports.checkUserServer = async function (discordID, serverID) {
             
             else { // user exists!
                 server = user.servers[serverID];
-                
+
                 if (!server) { // user exists but they haven't used byu in this server before
                     res = await queries.addToUserServers(user, serverID); // add server to user server list
                     server = res.servers[serverID];
@@ -106,13 +106,26 @@ exports.updateUserServerBalance = async function (user, server, newBalance) {
 
 // update user global items
 
+// get user's server balance
+exports.getUserServerBalance = async function (discordID, serverID) {
+    return new Promise((resolve, reject) => {
+        User.findOne({ 'discordID': discordID }, 'globalBalance', function (err, user) {
+            resolve(user.servers[serverID]);
+        })
+        .catch((error) => {
+            reject(error);
+        });
+    });
+}
+
+// get user's global balance
 exports.getUserGlobalBalance = async function (discordID) {
     return new Promise((resolve, reject) => {
         User.findOne({ 'discordID': discordID }, 'globalBalance', function (err, user) {
-            if (err) {
-                reject(err);
-            }
             resolve(user.globalBalance);
+        })
+        .catch((error) => {
+            reject(error);
         });
     });
 }

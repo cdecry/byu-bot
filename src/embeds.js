@@ -1,15 +1,15 @@
-const { defaultColor, blueDotURL, byuColored, byuPfp, emptyField, empty, emoteBlueHeart, emoteSparkles, timestamp, noTimestamp, emoteBlueDot, currency, emoteBlueHeartPulse } = require("./constants");
+const { defaultColor, blueDotURL, byuColored, byuPfp, emptyField, empty, emoteBlueHeart, emoteSparkles, timestamp, noTimestamp, emoteBlueDot, currency, emoteBlueHeartPulse, blueHeart } = require("./constants");
 const { getRandomInt } = require("./utils");
 
 const aboutTitle = `hi, i'm byu~`;
 const aboutDescription = `${emoteSparkles} **byu-bot** ${emoteBlueHeartPulse} is a miscellaneous discord bot originally created for the purpose of custom embedded auto responses!\n‎`;
 const aboutColor = defaultColor;
 const aboutAuthor = "byu";
-const aboutAuthorIcon = "https://media.discordapp.net/attachments/995187851937447936/1073395721765650502/blueheart.png";
+const aboutAuthorIcon = blueHeart;
 const aboutImage = byuColored;
 const aboutThumbnail = byuPfp;
 const aboutFooter = "use  ~help  to see some of byu's commands!";
-const aboutFooterIcon = blueDotURL;
+const aboutFooterIcon = blueHeart;
 const aboutFields = [
     { name: `${emoteBlueDot} tech stack:`, value: '‎ ‎ ╰▸ ‎ Eris, JS, MongoDB', inline: true},
     { name: `${emoteBlueDot} created by:`, value: '‎ ‎ ╰▸ ‎ ue / crystal', inline: true},
@@ -23,11 +23,11 @@ const helpAuthorIcon = blueDotURL;
 const helpImage = empty;
 const helpThumbnail = byuPfp;
 const helpFooter = empty;
-const helpFooterIcon = "blueDotURL";
+const helpFooterIcon = blueDotURL;
 const helpFields = [
-    { name: `${emoteBlueHeart} currency commands`, value: '`fish`', inline: false },
-    { name: `${emoteBlueHeart} info commands`, value: "`about` `help` `ping`", inline: false },
-    { name: `${emoteBlueHeart} fun commands`, value: '`idk`', inline: false }
+    { name: `${emoteBlueHeart} currency`, value: '`fish`', inline: false },
+    { name: `${emoteBlueHeart} info`, value: "`about` `help` `ping`", inline: false },
+    { name: `${emoteBlueHeart} fun`, value: '`idk`', inline: false }
 ];
 
 const fishColor = defaultColor;
@@ -100,5 +100,29 @@ exports.embedFish = function(username, fish, amount, balance) {
           text: fishFooter, icon_url: fishFooterIcon
       },
       fields: fishFields
+    };
+  };
+
+  exports.embedBalance = function(username, balance) {
+    const fishTitle = `${emoteSparkles} ${emoteBlueHeart} ${username} caught a ${fish}! (  + ${amount} ${currency}  )`;
+    const fishDescription = `**${emoteSparkles} ${emoteBlueHeart} ${username} caught a ${fish}! (  + ${amount} ${currency}  )**\n\n${emoteBlueDot} you sell it at the fish market .\n${emoteBlueDot} your new balance is ${balance} ${currency} !`;
+    return {
+      title: balanceTitle,
+      description: balanceDesc,
+      timestamp: noTimestamp,
+      color: balanceColor,
+      author: {
+          name: balanceAuthor, icon_url: balanceAuthorIcon
+      },
+      image: {
+          url: balanceImage
+      },
+      thumbnail: {
+          url: balanceThumbnail
+      },
+      footer: {
+          text: balanceFooter, icon_url: balanceFooterIcon
+      },
+      fields: balanceFields
     };
   };

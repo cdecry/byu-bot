@@ -24,3 +24,8 @@ exports.cmdFish = async function (client, msg) {
     let balance = res.servers[msg.channel.guild.id]["balance"];
     client.createMessage(msg.channel.id, { embed: embedFish(msg.author.username, randomFish.fish, randomFish.amount, balance) });
 }
+
+exports.cmdBalance = async function (client, msg) {
+    let balance = await dao.handleBalance(msg.author.id, msg.channel.guild.id);
+    client.createMessage(msg.channel.id, { embed: embedBalance(msg.author.username, balance) });
+}
