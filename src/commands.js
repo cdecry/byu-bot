@@ -19,9 +19,8 @@ exports.cmdHelp = async function (client, msg) {
 }
 
 exports.cmdFish = async function (client, msg) {
-    let amount = utils.getRandomInt(3, 85);
-    let res = await dao.handleFish(msg.author.id, msg.channel.guild.id, amount);
+    let randomFish = utils.getRandomFish();
+    let res = await dao.handleFish(msg.author.id, msg.channel.guild.id, randomFish.amount);
     let balance = res.servers[msg.channel.guild.id]["balance"];
-
-    client.createMessage(msg.channel.id, { embed: embedFish(msg.author.username, amount, balance) });
+    client.createMessage(msg.channel.id, { embed: embedFish(msg.author.username, randomFish.fish, randomFish.amount, balance) });
 }

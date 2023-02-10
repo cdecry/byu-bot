@@ -1,4 +1,4 @@
-const { defaultColor, blueDotURL, byuColored, byuPfp, emptyField, empty, emoteBlueHeart, emoteSparkles, timestamp, noTimestamp } = require("./constants");
+const { defaultColor, blueDotURL, byuColored, byuPfp, emptyField, empty, emoteBlueHeart, emoteSparkles, timestamp, noTimestamp, emoteBlueDot, currency } = require("./constants");
 const { getRandomInt } = require("./utils");
 
 const aboutTitle = "hi, i'm byu~";
@@ -27,12 +27,12 @@ const helpFields = [
     { name: `${emoteBlueHeart} fun commands`, value: '`idk`', inline: false }
 ];
 
-const fishDescription = empty;
 const fishColor = defaultColor;
 const fishAuthor = empty;
 const fishAuthorIcon = blueDotURL;
 const fishImage = empty;
-const fishThumbnail = empty;
+const fishThumbnail = "https://cdn.discordapp.com/attachments/995187851937447936/1073355251484217414/acfish2.gif";
+const fishFooter = empty;
 const fishFooterIcon = "https://static.wikia.nocookie.net/animalcrossing/images/2/2c/NH-Icon-palechub.png/revision/latest?cb=20200401003129";
 const fishFields = emptyField;
 
@@ -76,11 +76,11 @@ exports.embedHelp = {
     fields: helpFields
 };
 
-exports.embedFish = function(username, amount, balance) {
-    const fishTitle = `${emoteSparkles} ${emoteBlueHeart} ${username} caught a fishy! (  + ${amount}  )`;
-    const fishFooter = `your new balance: ${balance} !`;
+exports.embedFish = function(username, fish, amount, balance) {
+    const fishTitle = `${emoteSparkles} ${emoteBlueHeart} ${username} caught a ${fish}! (  + ${amount} ${currency}  )`;
+    const fishDescription = `**${emoteSparkles} ${emoteBlueHeart} ${username} caught a ${fish}! (  + ${amount} ${currency}  )**\n\n${emoteBlueDot} you sell it at the fish market .\n${emoteBlueDot} your new balance is ${balance} ${currency} !`;
     return {
-      title: fishTitle,
+      title: "",
       description: fishDescription,
       timestamp: noTimestamp,
       color: fishColor,
